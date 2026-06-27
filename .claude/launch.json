@@ -1,0 +1,26 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Flutter (debug)",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "--debug"],
+      "port": null,
+      "autoPort": true
+    },
+    {
+      "name": "Flutter (release)",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "--release", "-d", "chrome", "--web-port", "0"],
+      "port": null,
+      "autoPort": true
+    },
+    {
+      "name": "Flutter (profile)",
+      "runtimeExecutable": "flutter",
+      "runtimeArgs": ["run", "--profile"],
+      "port": null,
+      "autoPort": true
+    }
+  ]
+}
