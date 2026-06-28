@@ -24,6 +24,7 @@ const _googleMapsKey = String.fromEnvironment(
 );
 
 Future<StorageService> bootstrap() async {
+  AppLogger.info('Bootstrap step 1: WidgetsFlutterBinding');
   WidgetsFlutterBinding.ensureInitialized();
 
   await SystemChrome.setPreferredOrientations([
@@ -38,6 +39,7 @@ Future<StorageService> bootstrap() async {
     ),
   );
 
+  AppLogger.info('Bootstrap step 2: AppConfig');
   AppConfig.initialize(
     environment: AppEnvironment.development,
     supabaseUrl: _supabaseUrl,
@@ -45,6 +47,7 @@ Future<StorageService> bootstrap() async {
     googleMapsApiKey: _googleMapsKey,
   );
 
+  AppLogger.info('Bootstrap step 3: Supabase');
   await Supabase.initialize(
     url: _supabaseUrl,
     anonKey: _supabaseAnonKey,
@@ -54,15 +57,18 @@ Future<StorageService> bootstrap() async {
     ),
   );
 
+  AppLogger.info('Bootstrap step 4: Firebase');
   try {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    AppLogger.info('Bootstrap step 5: Notifications');
     await NotificationService.instance.init();
   } catch (e) {
     AppLogger.warning('Firebase init skipped: $e');
   }
 
+  AppLogger.info('Bootstrap step 6: StorageService');
   final storage = await StorageService.init();
   AppLogger.info('Bootstrap complete');
   return storage;
