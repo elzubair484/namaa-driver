@@ -73,9 +73,4 @@ flutter:
   uses-material-design: true
   generate: true
 
-  assets:
-    - assets/images/
-    - assets/icons/
-    - assets/animations/
-
   # Fonts are loaded via google_fonts package — no local font files needed
