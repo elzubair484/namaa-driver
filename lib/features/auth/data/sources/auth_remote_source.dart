@@ -7,29 +7,16 @@ class AuthRemoteSource {
   AuthRemoteSource(this._client);
   final SupabaseClient _client;
 
-  Future<void> sendOtp(String phone) async {
-    try {
-      await _client.auth.signInWithOtp(phone: phone);
-    } on AuthException catch (e) {
-      throw OtpException(e.message);
-    } catch (e) {
-      throw NetworkException(e.toString());
-    }
-  }
-
-  Future<DriverModel?> verifyOtp({
-    required String phone,
-    required String otp,
+  Future<DriverModel?> signInWithEmail({
+    required String email,
+    required String password,
   }) async {
     try {
-      final response = await _client.auth.verifyOTP(
-        phone: phone,
-        token: otp,
-        type: OtpType.sms,
+      final response = await _client.auth.signInWithPassword(
+        email: email,
+        password: password,
       );
-
       if (response.session == null) return null;
-
       return _fetchDriver(response.user!.id);
     } on AuthException catch (e) {
       throw OtpException(e.message);

@@ -23,39 +23,15 @@ final authSessionProvider = StreamProvider<Session?>((ref) {
       .map((event) => event.session);
 });
 
-class SendOtpState {
-  const SendOtpState({this.isLoading = false, this.error, this.sent = false});
-  final bool isLoading;
-  final String? error;
-  final bool sent;
-}
-
-class SendOtpNotifier extends AsyncNotifier<SendOtpState> {
-  @override
-  Future<SendOtpState> build() async => const SendOtpState();
-
-  Future<void> send(String phone) async {
-    state = const AsyncValue.data(SendOtpState(isLoading: true));
-    final result = await ref.read(authRepositoryProvider).sendOtp(phone);
-    result.fold(
-      (failure) => state = AsyncValue.data(SendOtpState(error: failure.message)),
-      (_) => state = const AsyncValue.data(SendOtpState(sent: true)),
-    );
-  }
-}
-
-final sendOtpProvider =
-    AsyncNotifierProvider<SendOtpNotifier, SendOtpState>(SendOtpNotifier.new);
-
-class VerifyOtpNotifier extends AsyncNotifier<DriverEntity?> {
+class SignInNotifier extends AsyncNotifier<DriverEntity?> {
   @override
   Future<DriverEntity?> build() async => null;
 
-  Future<bool> verify({required String phone, required String otp}) async {
+  Future<bool> signIn({required String email, required String password}) async {
     state = const AsyncValue.loading();
     final result = await ref
         .read(authRepositoryProvider)
-        .verifyOtp(phone: phone, otp: otp);
+        .signInWithEmail(email: email, password: password);
     return result.fold(
       (failure) {
         state = AsyncValue.error(failure.message, StackTrace.current);
@@ -69,5 +45,5 @@ class VerifyOtpNotifier extends AsyncNotifier<DriverEntity?> {
   }
 }
 
-final verifyOtpProvider =
-    AsyncNotifierProvider<VerifyOtpNotifier, DriverEntity?>(VerifyOtpNotifier.new);
+final signInProvider =
+    AsyncNotifierProvider<SignInNotifier, DriverEntity?>(SignInNotifier.new);

@@ -10,22 +10,15 @@ class AuthRepositoryImpl implements AuthRepository {
   final AuthRemoteSource _remote;
 
   @override
-  Future<Either<Failure, void>> sendOtp(String phone) async {
-    try {
-      await _remote.sendOtp(phone);
-      return const Right(null);
-    } catch (e) {
-      return Left(ErrorHandler.handleException(e));
-    }
-  }
-
-  @override
-  Future<Either<Failure, DriverEntity?>> verifyOtp({
-    required String phone,
-    required String otp,
+  Future<Either<Failure, DriverEntity?>> signInWithEmail({
+    required String email,
+    required String password,
   }) async {
     try {
-      final driver = await _remote.verifyOtp(phone: phone, otp: otp);
+      final driver = await _remote.signInWithEmail(
+        email: email,
+        password: password,
+      );
       return Right(driver);
     } catch (e) {
       return Left(ErrorHandler.handleException(e));

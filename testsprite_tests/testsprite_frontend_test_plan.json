@@ -1,0 +1,1410 @@
+[
+  {
+    "id": "TC001",
+    "title": "Sign in and load the current driver profile",
+    "description": "This verifies that an authenticated driver can sign in and see their current profile loaded successfully.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the current driver profile is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user is signed in"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC002",
+    "title": "Accept a live trip request and progress through the trip lifecycle",
+    "description": "This verifies that a driver can receive a trip request in real time, accept it, and update the trip through completion.",
+    "category": "Trip Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the trips area"
+      },
+      {
+        "type": "action",
+        "description": "Wait for a trip request to appear"
+      },
+      {
+        "type": "action",
+        "description": "Accept the trip request"
+      },
+      {
+        "type": "action",
+        "description": "Mark the trip as arrived"
+      },
+      {
+        "type": "action",
+        "description": "Mark the trip as in progress"
+      },
+      {
+        "type": "action",
+        "description": "Mark the trip as completed"
+      },
+      {
+        "type": "action",
+        "description": "Rate the passenger"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the completed trip state is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the passenger rating is recorded"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC003",
+    "title": "Sign out and lose access to the current profile",
+    "description": "This verifies that a signed-in driver can sign out and no longer access authenticated profile data in the app.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the account menu"
+      },
+      {
+        "type": "action",
+        "description": "Sign out of the app"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the signed-out state is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the current driver profile is no longer displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC004",
+    "title": "View live wallet balance",
+    "description": "This test verifies that an authenticated driver can open the wallet and see the current balance updating in the UI.",
+    "category": "Wallet & Earnings",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the current wallet balance is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the balance area is visible as part of the wallet view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC005",
+    "title": "Monitor unread notifications after support activity",
+    "description": "This test verifies that an authenticated driver can view notifications and see unread items reflected in the notifications area.",
+    "category": "Notifications",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the notifications section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify unread notifications are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the notifications list is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC006",
+    "title": "See live notifications and unread count after sign-in",
+    "description": "This verifies an authenticated driver can view the realtime notifications stream and see the current unread notification count.",
+    "category": "Notifications",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the notifications area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recent notifications are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify an unread notification count is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC007",
+    "title": "Reject invalid sign-in credentials",
+    "description": "This verifies that invalid login credentials are rejected and no authenticated session is created.",
+    "category": "Authentication",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with invalid-credentials"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with invalid-password"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a login validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the user remains signed out"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC008",
+    "title": "Complete onboarding and submit profile for review",
+    "description": "This test verifies that a first-time driver can finish onboarding by adding profile, vehicle, and document information and then submit the profile for admin review.",
+    "category": "Driver Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the onboarding flow"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the profile details"
+      },
+      {
+        "type": "action",
+        "description": "Set an avatar for the profile"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the vehicle details"
+      },
+      {
+        "type": "action",
+        "description": "Add the required documents"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile for review"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile is marked as under review"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify onboarding completion is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC009",
+    "title": "See unread notifications update after activity",
+    "description": "This verifies that a driver can open notifications and see the unread count and notification list update after new activity arrives.",
+    "category": "Notifications",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the notifications area"
+      },
+      {
+        "type": "action",
+        "description": "Wait for a new notification to appear"
+      },
+      {
+        "type": "action",
+        "description": "Open the notification"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the unread notification count updates"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the notification is marked as read"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC010",
+    "title": "View wallet balance and earnings breakdown",
+    "description": "This verifies a driver can open the wallet and inspect the current balance, transaction activity, and earnings breakdown.",
+    "category": "Wallet",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the current wallet balance is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify earnings breakdown data is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC011",
+    "title": "Complete driver onboarding and submit for review",
+    "description": "This verifies that a new driver can finish profile setup with vehicle and document details and submit the profile for review.",
+    "category": "Driver Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the full name field with a valid name"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the email field with a valid email address"
+      },
+      {
+        "type": "action",
+        "description": "Save the driver profile"
+      },
+      {
+        "type": "action",
+        "description": "Add a driver avatar"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the vehicle make field with a valid make"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the vehicle model field with a valid model"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid vehicle year"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the vehicle color field with a valid color"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the vehicle plate number field with a valid plate number"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid vehicle type"
+      },
+      {
+        "type": "action",
+        "description": "Save the vehicle details"
+      },
+      {
+        "type": "action",
+        "description": "Add a driver document"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid document type"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid document expiry date"
+      },
+      {
+        "type": "action",
+        "description": "Save the document details"
+      },
+      {
+        "type": "action",
+        "description": "Submit the profile for review"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile review status is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the onboarding completion state is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC012",
+    "title": "Submit a withdrawal request",
+    "description": "This test verifies that an authenticated driver can create a withdrawal request with valid payout details and see it added in the wallet flow.",
+    "category": "Wallet & Earnings",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet section"
+      },
+      {
+        "type": "action",
+        "description": "Start a withdrawal request"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the withdrawal amount with a valid value"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the bank name with a valid value"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the account number with a valid value"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the account name with a valid value"
+      },
+      {
+        "type": "action",
+        "description": "Submit the withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a withdrawal request confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the withdrawal request appears in the wallet history"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC013",
+    "title": "Mark a notification as read",
+    "description": "This verifies a driver can open an unread notification and mark it as read so it no longer appears unread.",
+    "category": "Notifications",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the notifications area"
+      },
+      {
+        "type": "action",
+        "description": "Select an unread notification"
+      },
+      {
+        "type": "action",
+        "description": "Mark the notification as read"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the notification is no longer unread"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC014",
+    "title": "Reject a live trip request",
+    "description": "This verifies that a driver can cancel an incoming trip request instead of accepting it.",
+    "category": "Trip Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the trips area"
+      },
+      {
+        "type": "action",
+        "description": "Wait for a trip request to appear"
+      },
+      {
+        "type": "action",
+        "description": "Cancel the trip request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the trip request is no longer active"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the cancelled trip state is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC015",
+    "title": "Create a support ticket with an initial message",
+    "description": "This test verifies that an authenticated driver can create a new support ticket and send the first message successfully.",
+    "category": "Support Tickets",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the support section"
+      },
+      {
+        "type": "action",
+        "description": "Start a new support ticket"
+      },
+      {
+        "type": "action",
+        "description": "Select a support category"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a subject for the ticket"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the first message for the ticket"
+      },
+      {
+        "type": "action",
+        "description": "Submit the support ticket"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new support ticket is created"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the first message is visible in the ticket conversation"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC016",
+    "title": "Create a withdrawal request",
+    "description": "This verifies a driver can enter withdrawal details and submit a withdrawal request from the wallet screen.",
+    "category": "Wallet",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet area"
+      },
+      {
+        "type": "action",
+        "description": "Start a withdrawal request"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid withdrawal amount"
+      },
+      {
+        "type": "action",
+        "description": "Select the destination bank account"
+      },
+      {
+        "type": "action",
+        "description": "Submit the withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a withdrawal request confirmation is visible"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC017",
+    "title": "Review wallet transactions and withdrawal history",
+    "description": "This test verifies that an authenticated driver can browse paginated wallet transactions and see recent withdrawal requests.",
+    "category": "Wallet & Earnings",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet section"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the transactions area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify wallet transactions are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify recent withdrawal requests are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC018",
+    "title": "Continue onboarding from an existing draft profile",
+    "description": "This verifies a driver can return to onboarding, see previously entered details, and finish submission without losing progress.",
+    "category": "Driver Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the onboarding profile area"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify previously saved onboarding details are displayed"
+      },
+      {
+        "type": "action",
+        "description": "Complete any remaining onboarding fields"
+      },
+      {
+        "type": "action",
+        "description": "Submit the onboarding profile for review"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile is submitted for under review status"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC019",
+    "title": "Prevent submission before required onboarding details are complete",
+    "description": "This verifies that a driver cannot submit for review until the required profile, vehicle, and document information is present.",
+    "category": "Driver Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the onboarding submission area"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to submit the profile for review"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a completeness validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the profile remains editable"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC020",
+    "title": "Browse trip history and open a trip detail",
+    "description": "This verifies a driver can review past trips, open one trip, and see its detailed information.",
+    "category": "Trip History",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the trip history area"
+      },
+      {
+        "type": "action",
+        "description": "Open a trip from the history list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the trip detail view is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify trip details are displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC021",
+    "title": "Request a wallet withdrawal",
+    "description": "This verifies that a driver can create a withdrawal request from the wallet screen.",
+    "category": "Wallet",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet area"
+      },
+      {
+        "type": "action",
+        "description": "Open the withdrawal form"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a valid withdrawal amount"
+      },
+      {
+        "type": "action",
+        "description": "Select a valid bank account"
+      },
+      {
+        "type": "action",
+        "description": "Submit the withdrawal request"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the withdrawal request confirmation is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new withdrawal appears in the wallet activity"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC022",
+    "title": "Open trip history and inspect a trip detail",
+    "description": "This test verifies that an authenticated driver can browse trip history and open a specific past trip to review its details.",
+    "category": "Trip History",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the trip history section"
+      },
+      {
+        "type": "action",
+        "description": "Open one trip from the history list"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify trip details are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the selected trip remains identifiable in the detail view"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC023",
+    "title": "Mark all notifications as read",
+    "description": "This verifies a driver can clear the unread state for all notifications from the notifications view.",
+    "category": "Notifications",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the notifications area"
+      },
+      {
+        "type": "action",
+        "description": "Mark all notifications as read"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify unread notifications are cleared"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC024",
+    "title": "Create a support ticket and continue the conversation",
+    "description": "This verifies a driver can create a support ticket with an initial message and continue the threaded conversation from support.",
+    "category": "Support",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the support area"
+      },
+      {
+        "type": "action",
+        "description": "Create a new support ticket"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a support subject"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the first support message"
+      },
+      {
+        "type": "action",
+        "description": "Submit the support ticket"
+      },
+      {
+        "type": "action",
+        "description": "Add a follow-up message to the ticket thread"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the support conversation is displayed"
+      }
+    ],
+    "priority": "High"
+  },
+  {
+    "id": "TC025",
+    "title": "See earnings breakdown for today, week, and month",
+    "description": "This test verifies that an authenticated driver can view earnings totals broken down by time period in the wallet area.",
+    "category": "Wallet & Earnings",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify today earnings are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify weekly and monthly earnings are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC026",
+    "title": "See notifications update in realtime",
+    "description": "This verifies the notifications list updates in the UI when a new notification arrives while the driver is signed in.",
+    "category": "Notifications",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the notifications area"
+      },
+      {
+        "type": "action",
+        "description": "Wait for a new notification to appear"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the notifications list updates with a new item"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC027",
+    "title": "Continue a support conversation",
+    "description": "This test verifies that an authenticated driver can open an existing support ticket and send a follow-up message in the conversation.",
+    "category": "Support Tickets",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the support section"
+      },
+      {
+        "type": "action",
+        "description": "Open an existing support ticket"
+      },
+      {
+        "type": "action",
+        "description": "Fill in a follow-up message"
+      },
+      {
+        "type": "action",
+        "description": "Send the message"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the new message appears in the conversation"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the ticket thread remains open"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC028",
+    "title": "Open a trip from history and review performance metrics",
+    "description": "This verifies that a driver can review past trips and inspect their performance stats from the trip history area.",
+    "category": "Trip History and Performance",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the trip history area"
+      },
+      {
+        "type": "action",
+        "description": "Open a trip from the history list"
+      },
+      {
+        "type": "action",
+        "description": "Open the performance stats section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the trip details are displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify driver performance metrics are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC029",
+    "title": "View driver performance metrics",
+    "description": "This test verifies that an authenticated driver can open the performance area and see their rating and completion metrics.",
+    "category": "Trip History",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to the login page"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the driver credentials with {{LOGIN_USER}} and {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the performance statistics section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify driver rating is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify acceptance rate and completion rate are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC030",
+    "title": "Review wallet transaction history",
+    "description": "This verifies a driver can browse wallet transactions and see transaction history entries in the wallet view.",
+    "category": "Wallet",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login email field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the wallet area"
+      },
+      {
+        "type": "action",
+        "description": "Scroll to the transaction history section"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify wallet transactions are displayed"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC031",
+    "title": "Update the driver avatar and see the new profile image",
+    "description": "This verifies that a driver can replace their avatar and the updated image is reflected in the profile.",
+    "category": "Driver Onboarding",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the profile image settings"
+      },
+      {
+        "type": "action",
+        "description": "Add a new driver avatar"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the updated profile image is displayed"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the avatar replacement confirmation is visible"
+      }
+    ],
+    "priority": "Medium"
+  },
+  {
+    "id": "TC032",
+    "title": "Prevent out-of-order trip completion",
+    "description": "This verifies that trip status changes cannot be completed before the trip has started.",
+    "category": "Trip Management",
+    "steps": [
+      {
+        "type": "action",
+        "description": "Navigate to /login"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the login credential field with {{LOGIN_USER}}"
+      },
+      {
+        "type": "action",
+        "description": "Fill in the password field with {{LOGIN_PASSWORD}}"
+      },
+      {
+        "type": "action",
+        "description": "Submit the login form"
+      },
+      {
+        "type": "action",
+        "description": "Open the trips area"
+      },
+      {
+        "type": "action",
+        "description": "Wait for a trip request to appear"
+      },
+      {
+        "type": "action",
+        "description": "Attempt to mark the trip as completed before starting it"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify a trip state validation error is visible"
+      },
+      {
+        "type": "assertion",
+        "description": "Verify the trip remains not completed"
+      }
+    ],
+    "priority": "Low"
+  }
+]

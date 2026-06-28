@@ -72,11 +72,12 @@ class OnboardingRemoteSource {
   }) async {
     try {
       final ext = _fileExtension(file);
-      final path = '$userId/avatar.$ext';
+      final safeExt = ['jpeg', 'png', 'webp'].contains(ext) ? ext : 'jpeg';
+      final path = '$userId/avatar.$safeExt';
       await _client.storage.from(SupabaseConfig.avatarsBucket).uploadBinary(
             path,
             await _readBytes(file),
-            fileOptions: FileOptions(contentType: 'image/$ext', upsert: true),
+            fileOptions: FileOptions(contentType: 'image/$safeExt', upsert: true),
           );
       return _client.storage
           .from(SupabaseConfig.avatarsBucket)
@@ -127,13 +128,14 @@ class OnboardingRemoteSource {
   }) async {
     try {
       final ext = _fileExtension(file);
-      final path = '$userId/${documentType.key}.$ext';
+      final safeExt = ['jpeg', 'png', 'webp'].contains(ext) ? ext : 'jpeg';
+      final path = '$userId/${documentType.key}.$safeExt';
       await _client.storage
           .from(SupabaseConfig.documentsBucket)
           .uploadBinary(
             path,
             await _readBytes(file),
-            fileOptions: FileOptions(contentType: 'image/$ext', upsert: true),
+            fileOptions: FileOptions(contentType: 'image/$safeExt', upsert: true),
           );
       // Return signed URL valid for 1 year
       return await _client.storage
@@ -204,18 +206,23 @@ class OnboardingRemoteSource {
   // ── Helpers ────────────────────────────────────────────────
 
   String _fileExtension(dynamic file) {
-    if (file is String) {
-      final parts = file.split('.');
-      return parts.last.toLowerCase().replaceAll('jpg', 'jpeg');
-    }
-    // XFile from image_picker
     try {
-      final path = (file as dynamic).path as String;
-      final ext = path.split('.').last.toLowerCase();
-      return ext == 'jpg' ? 'jpeg' : ext;
-    } catch (_) {
-      return 'jpeg';
-    }
+      // XFile.mimeType is reliable on web (e.g. "image/jpeg")
+      final mimeType = (file as dynamic).mimeType as String?;
+      if (mimeType != null && mimeType.startsWith('image/')) {
+        final sub = mimeType.split('/').last.toLowerCase();
+        return sub == 'jpg' ? 'jpeg' : sub;
+      }
+      // XFile.name contains original filename on web
+      final name = (file as dynamic).name as String?;
+      if (name != null && name.contains('.')) {
+        final ext = name.split('.').last.toLowerCase();
+        if (['jpeg', 'jpg', 'png', 'webp'].contains(ext)) {
+          return ext == 'jpg' ? 'jpeg' : ext;
+        }
+      }
+    } catch (_) {}
+    return 'jpeg';
   }
 
   Future<Uint8List> _readBytes(dynamic file) async {

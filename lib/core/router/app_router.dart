@@ -6,7 +6,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import '../../features/auth/domain/entities/driver_entity.dart';
 import '../../features/auth/presentation/pages/splash_page.dart';
 import '../../features/auth/presentation/pages/phone_entry_page.dart';
-import '../../features/auth/presentation/pages/otp_verification_page.dart';
 import '../../features/auth/presentation/providers/auth_provider.dart';
 import '../../features/onboarding/presentation/pages/profile_setup_page.dart';
 import '../../features/onboarding/presentation/pages/vehicle_info_page.dart';
@@ -61,14 +60,11 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       // Not logged in → phone entry
       if (session == null) {
-        final onAuth = loc == RouteNames.phoneEntry ||
-            loc == RouteNames.otpVerification ||
-            loc.startsWith('/otp');
-        return onAuth ? null : RouteNames.phoneEntry;
+        return loc == RouteNames.phoneEntry ? null : RouteNames.phoneEntry;
       }
 
-      // Logged in + on auth pages → check driver status
-      if (loc == RouteNames.phoneEntry || loc.startsWith('/otp')) {
+      // Logged in + on login page → go to home
+      if (loc == RouteNames.phoneEntry) {
         return RouteNames.home; // router will re-redirect based on status
       }
 
@@ -114,13 +110,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: RouteNames.phoneEntry,
         builder: (_, __) => const PhoneEntryPage(),
       ),
-      GoRoute(
-        path: RouteNames.otpVerification,
-        builder: (_, state) => OtpVerificationPage(
-          phone: state.uri.queryParameters['phone'] ?? '',
-        ),
-      ),
-
       // ── Onboarding ────────────────────────────────────────
       GoRoute(
         path: RouteNames.profileSetup,

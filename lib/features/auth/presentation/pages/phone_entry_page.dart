@@ -6,7 +6,6 @@ import '../../../../design_system/tokens/colors.dart';
 import '../../../../design_system/tokens/typography.dart';
 import '../../../../design_system/tokens/spacing.dart';
 import '../../../../design_system/components/buttons/primary_button.dart';
-import '../../../../design_system/components/inputs/phone_field.dart';
 import '../providers/auth_provider.dart';
 
 class PhoneEntryPage extends ConsumerStatefulWidget {
@@ -17,89 +16,117 @@ class PhoneEntryPage extends ConsumerStatefulWidget {
 }
 
 class _PhoneEntryPageState extends ConsumerState<PhoneEntryPage> {
-  final _controller = TextEditingController();
-  String _fullPhone = '';
-  bool _submitted = false;
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
 
   @override
   void dispose() {
-    _controller.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
     super.dispose();
   }
 
-  Future<void> _send() async {
-    setState(() => _submitted = true);
-    if (_fullPhone.isEmpty) return;
-
-    await ref.read(sendOtpProvider.notifier).send(_fullPhone);
-    final state = ref.read(sendOtpProvider);
-
-    if (state.value?.sent == true && mounted) {
-      context.push(
-        '${RouteNames.otpVerification}?phone=${Uri.encodeComponent(_fullPhone)}',
-      );
+  Future<void> _signIn() async {
+    if (!_formKey.currentState!.validate()) return;
+    final success = await ref.read(signInProvider.notifier).signIn(
+          email: _emailController.text.trim(),
+          password: _passwordController.text,
+        );
+    if (success && mounted) {
+      context.go(RouteNames.home);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    final state = ref.watch(sendOtpProvider);
-    final isLoading = state.value?.isLoading == true;
-    final error = state.value?.error;
+    final state = ref.watch(signInProvider);
+    final isLoading = state.isLoading;
+    final error = state.hasError ? state.error.toString() : null;
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
+        child: SingleChildScrollView(
           padding: const EdgeInsets.all(NamaaSpacing.lg),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const SizedBox(height: NamaaSpacing.xxxl),
-              Container(
-                width: 56,
-                height: 56,
-                decoration: BoxDecoration(
-                  color: NamaaColors.primaryLight,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Icon(
-                  Icons.phone_android,
-                  color: NamaaColors.primaryDark,
-                  size: 28,
-                ),
-              ),
-              const SizedBox(height: NamaaSpacing.lg),
-              Text('مرحباً بك!', style: NamaaTypography.displayMedium),
-              const SizedBox(height: NamaaSpacing.sm),
-              Text(
-                'أدخل رقم هاتفك للمتابعة',
-                style: NamaaTypography.bodyLarge.copyWith(
-                  color: NamaaColors.textSecondary,
-                ),
-              ),
-              const SizedBox(height: NamaaSpacing.xl),
-              NamaaPhoneField(
-                controller: _controller,
-                label: 'رقم الهاتف',
-                onChanged: (phone) => setState(() => _fullPhone = phone),
-              ),
-              if (error != null) ...[
-                const SizedBox(height: NamaaSpacing.sm),
-                Text(
-                  error,
-                  style: NamaaTypography.bodySmall.copyWith(
-                    color: NamaaColors.error,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: NamaaSpacing.xxxl),
+                Container(
+                  width: 56,
+                  height: 56,
+                  decoration: BoxDecoration(
+                    color: NamaaColors.primaryLight,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: const Icon(
+                    Icons.directions_car,
+                    color: NamaaColors.primaryDark,
+                    size: 28,
                   ),
                 ),
+                const SizedBox(height: NamaaSpacing.lg),
+                Text('مرحباً بك!', style: NamaaTypography.displayMedium),
+                const SizedBox(height: NamaaSpacing.sm),
+                Text(
+                  'سجّل دخولك للمتابعة',
+                  style: NamaaTypography.bodyLarge.copyWith(
+                    color: NamaaColors.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: NamaaSpacing.xl),
+                TextFormField(
+                  controller: _emailController,
+                  keyboardType: TextInputType.emailAddress,
+                  textDirection: TextDirection.ltr,
+                  decoration: const InputDecoration(
+                    labelText: 'البريد الإلكتروني',
+                    prefixIcon: Icon(Icons.email_outlined),
+                    border: OutlineInputBorder(),
+                  ),
+                  validator: (v) =>
+                      (v == null || !v.contains('@')) ? 'أدخل بريداً إلكترونياً صحيحاً' : null,
+                ),
+                const SizedBox(height: NamaaSpacing.md),
+                TextFormField(
+                  controller: _passwordController,
+                  obscureText: _obscurePassword,
+                  textDirection: TextDirection.ltr,
+                  decoration: InputDecoration(
+                    labelText: 'كلمة المرور',
+                    prefixIcon: const Icon(Icons.lock_outline),
+                    border: const OutlineInputBorder(),
+                    suffixIcon: IconButton(
+                      icon: Icon(_obscurePassword
+                          ? Icons.visibility_outlined
+                          : Icons.visibility_off_outlined),
+                      onPressed: () =>
+                          setState(() => _obscurePassword = !_obscurePassword),
+                    ),
+                  ),
+                  validator: (v) =>
+                      (v == null || v.length < 6) ? 'كلمة المرور قصيرة جداً' : null,
+                ),
+                if (error != null) ...[
+                  const SizedBox(height: NamaaSpacing.sm),
+                  Text(
+                    error,
+                    style: NamaaTypography.bodySmall
+                        .copyWith(color: NamaaColors.error),
+                  ),
+                ],
+                const SizedBox(height: NamaaSpacing.xxxl),
+                PrimaryButton(
+                  label: 'تسجيل الدخول',
+                  onPressed: isLoading ? null : _signIn,
+                  isLoading: isLoading,
+                ),
+                const SizedBox(height: NamaaSpacing.md),
               ],
-              const Spacer(),
-              PrimaryButton(
-                label: 'إرسال رمز التحقق',
-                onPressed: isLoading ? null : _send,
-                isLoading: isLoading,
-              ),
-              const SizedBox(height: NamaaSpacing.md),
-            ],
+            ),
           ),
         ),
       ),

@@ -1,0 +1,7 @@
+[
+  {
+    "id": "TC001",
+    "title": "postrestv1withdrawalrequestssubmitvalidwithdrawalrequest",
+    "description": "Test submitting a valid withdrawal request with all required fields including driver_id, wallet_id, amount, bank_name, account_number, and account_name. Verify the response status is 201 and the response body contains the withdrawal request details such as id, amount, status, and bank_name."
+  }
+]

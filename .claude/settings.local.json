@@ -5,7 +5,9 @@
       "Bash(flutter pub *)",
       "mcp__Claude_Preview__preview_start",
       "Bash(flutter analyze *)",
-      "Bash(curl -s http://localhost:61952)"
+      "Bash(curl -s http://localhost:61952)",
+      "Bash(cat ~/.claude/settings.json)",
+      "Bash(npx --yes @testsprite/testsprite-mcp@latest --help)"
     ]
   }
 }

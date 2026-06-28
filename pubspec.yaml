@@ -60,7 +60,7 @@ dependencies:
   logger: ^2.5.0
 
 dependency_overrides:
-  google_maps_flutter_android: ^2.19.12
+  google_maps_flutter_android: '>=2.14.0 <2.15.0'
 
 dev_dependencies:
   flutter_test:
