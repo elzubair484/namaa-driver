@@ -78,8 +78,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (onboarding.contains(loc)) return null;
 
       // For home and main shell — verify driver status
-      final driverAsync = ref.read(currentDriverProvider);
-      final driver = driverAsync.valueOrNull;
+      final driver = await ref.read(currentDriverProvider.future);
 
       if (driver == null) {
         // No driver profile yet → start onboarding
