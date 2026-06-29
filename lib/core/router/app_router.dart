@@ -41,8 +41,18 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final routerProvider = Provider<GoRouter>((ref) {
   final authNotifier = ValueNotifier<String?>('loading');
 
+  // Fire on auth state change
   ref.listen(authSessionProvider, (_, next) {
-    authNotifier.value = next.valueOrNull?.user?.id ?? 'unauthenticated';
+    authNotifier.value =
+        '${next.valueOrNull?.user?.id ?? 'unauthenticated'}_${DateTime.now().millisecondsSinceEpoch}';
+  });
+
+  // Also fire when driver data loads/changes so redirect can re-evaluate
+  ref.listen(currentDriverProvider, (_, next) {
+    if (!next.isLoading) {
+      final uid = Supabase.instance.client.auth.currentSession?.user.id ?? 'unauthenticated';
+      authNotifier.value = '${uid}_${DateTime.now().millisecondsSinceEpoch}';
+    }
   });
 
   return GoRouter(
@@ -50,7 +60,7 @@ final routerProvider = Provider<GoRouter>((ref) {
     initialLocation: RouteNames.splash,
     debugLogDiagnostics: true,
     refreshListenable: authNotifier,
-    redirect: (context, state) async {
+    redirect: (context, state) {
       final loc = state.matchedLocation;
 
       // Always allow splash to render
@@ -65,7 +75,7 @@ final routerProvider = Provider<GoRouter>((ref) {
 
       // Logged in + on login page → go to home
       if (loc == RouteNames.phoneEntry) {
-        return RouteNames.home; // router will re-redirect based on status
+        return RouteNames.home;
       }
 
       // Allow onboarding pages freely for authenticated users
@@ -77,21 +87,22 @@ final routerProvider = Provider<GoRouter>((ref) {
       ];
       if (onboarding.contains(loc)) return null;
 
-      // For home and main shell — verify driver status
-      final driver = await ref.read(currentDriverProvider.future);
+      // For home and main shell — verify driver status synchronously
+      final driverAsync = ref.read(currentDriverProvider);
+
+      // Still loading — stay on current page; redirect re-runs when driver loads
+      if (driverAsync.isLoading) return null;
+
+      final driver = driverAsync.valueOrNull;
 
       if (driver == null) {
-        // No driver profile yet → start onboarding
         return RouteNames.profileSetup;
       }
 
       if (driver.status == DriverStatus.pending ||
           driver.status == DriverStatus.underReview ||
-          driver.status == DriverStatus.rejected) {
-        return RouteNames.pendingApproval;
-      }
-
-      if (driver.status == DriverStatus.suspended ||
+          driver.status == DriverStatus.rejected ||
+          driver.status == DriverStatus.suspended ||
           driver.status == DriverStatus.inactive) {
         return RouteNames.pendingApproval;
       }
