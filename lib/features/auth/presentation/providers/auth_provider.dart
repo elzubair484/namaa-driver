@@ -15,6 +15,9 @@ final authRepositoryProvider = Provider<AuthRepository>((ref) {
 });
 
 final currentDriverProvider = StreamProvider<DriverEntity?>((ref) {
+  // Watch auth session so this provider rebuilds when the user signs in/out,
+  // ensuring watchCurrentDriver() is called with the current user each time.
+  ref.watch(authSessionProvider);
   return ref.watch(authRepositoryProvider).watchCurrentDriver();
 });
 

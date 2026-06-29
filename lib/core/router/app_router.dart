@@ -41,10 +41,8 @@ final _rootNavigatorKey = GlobalKey<NavigatorState>();
 final routerProvider = Provider<GoRouter>((ref) {
   final authNotifier = ValueNotifier<String?>('loading');
 
-  // Fire on auth state change and invalidate driver stream so it re-creates
-  // with the new currentUser (the old stream captured a null user at build time)
+  // Fire on auth state change
   ref.listen(authSessionProvider, (_, next) {
-    ref.invalidate(currentDriverProvider);
     authNotifier.value =
         '${next.valueOrNull?.user?.id ?? 'unauthenticated'}_${DateTime.now().millisecondsSinceEpoch}';
   });
